@@ -1,0 +1,12 @@
+<h2>new-movie.hbs</h2> 
+<form action="/movies/create" method="post">
+    <input type="text" name="title" placeholder="Title">
+    <input type="text" name="genre" placeholder="Genre">
+    <input type="text" name="plot" placeholder="Plot">
+    <select name="cast" multiple>
+        {{#each celebrities}}
+        <option value="{{_id}}">{{name}}</option>
+        {{/each}}
+    </select>
+    <button type="submit">Create a new movie</button>
+</form>

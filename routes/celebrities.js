@@ -7,7 +7,6 @@ const Celebrity = require("../models/Celebrity");
 /* GET celebrities page */
 router.get("/", async (req, res, next) => {
     const celebrities = await Celebrity.find({});
-    console.log(celebrities);
     res.render("celebrities/celebrities", {celebrities});
 })
 
@@ -16,10 +15,10 @@ router.get("/create", (req, res, next) => {
     res.render("celebrities/new-celebrity");
 })
 
-/* POST new-celebrities in database */
+/* POST new-celebrity in database */
 router.post("/create", async (req, res, next) => {
     const {name, occupation, catchPhrase} = req.body;
-    console.log(req.body)
+    console.log(req.body);
     try {
         await Celebrity.create({name, occupation, catchPhrase});
         res.redirect("/celebrities");
