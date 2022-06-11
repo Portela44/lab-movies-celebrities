@@ -4,6 +4,11 @@ const Celebrity = require("../models/Celebrity");
 
 // all your routes here
 
+/* GET celebrities page */
+router.get("/", (req, res, next) => {
+    res.render("celebrities/celebrities");
+})
+
 /* GET new-celebrities page */
 router.get("/create", (req, res, next) => {
     res.render("celebrities/new-celebrity");
