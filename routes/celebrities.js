@@ -5,8 +5,10 @@ const Celebrity = require("../models/Celebrity");
 // all your routes here
 
 /* GET celebrities page */
-router.get("/", (req, res, next) => {
-    res.render("celebrities/celebrities");
+router.get("/", async (req, res, next) => {
+    const celebrities = await Celebrity.find({});
+    console.log(celebrities);
+    res.render("celebrities/celebrities", {celebrities});
 })
 
 /* GET new-celebrities page */
