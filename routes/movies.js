@@ -9,15 +9,23 @@ const Movie = require("../models/Movie");
 
 /* GET movies page */
 router.get("/", async (req, res, next) => {
-    const movies = await Movie.find({});
-    console.log(movies);
-    res.render("movies/movies", {movies});
+    try {
+        const movies = await Movie.find({});
+        res.render("movies/movies", {movies});
+    } catch (error) {
+        next(error)
+    }   
 })
 
-/* GET new-movies page */
+/* GET new-movies page with celebrity info*/
 router.get("/create", async (req, res, next) => {
-    const celebrities = await Celebrity.find({});
-    res.render("movies/new-movie", {celebrities});
+    try {
+        const celebrities = await Celebrity.find({});
+        res.render("movies/new-movie", {celebrities});
+    } catch (error) {
+        next(error);
+    }
+    
 })
 
 /* POST new-movie in database */
@@ -28,6 +36,18 @@ router.post("/create", async (req, res, next) => {
         res.redirect("/movies");
     } catch (error) {
         res.redirect("/movies/create");
+    }
+})
+
+/* GET movie-details page with movie id info*/
+router.get("/:movieId", async (req, res, next) => {
+    const {movieId} = req.params;
+    try {
+        const movie = await Movie.findById(movieId).populate("cast");
+        res.render("movies/movie-details", {movie});
+        console.log(movie);
+    } catch (error) {
+        next(error);
     }
 })
 

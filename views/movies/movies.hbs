@@ -1,7 +1,7 @@
 <h1>movies.hbs</h1>
 {{#each movies}}
 <ul>
-    <li>{{title}}</li>
+    <li><a href="/movies/{{_id}}">{{title}}</a></li>
 </ul>
 {{/each}}
 <a href="/movies/create">Create a new movie</a>

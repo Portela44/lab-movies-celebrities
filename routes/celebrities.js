@@ -7,12 +7,20 @@ const Celebrity = require("../models/Celebrity");
 /* GET celebrities page */
 router.get("/", async (req, res, next) => {
     const celebrities = await Celebrity.find({});
-    res.render("celebrities/celebrities", {celebrities});
+    try {
+        res.render("celebrities/celebrities", {celebrities});
+    } catch (error) {
+        next(error);
+    }
 })
 
 /* GET new-celebrities page */
 router.get("/create", (req, res, next) => {
-    res.render("celebrities/new-celebrity");
+    try {
+        res.render("celebrities/new-celebrity");
+    } catch (error) {
+        next(error);
+    }
 })
 
 /* POST new-celebrity in database */

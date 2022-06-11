@@ -12,7 +12,7 @@ const movieSchema = new Schema ({
         type:String,
     },
     cast: {
-        type: Schema.Types.ObjectId,
+        type: [Schema.Types.ObjectId],
         ref: "Celebrity"
     }
 })
