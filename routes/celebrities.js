@@ -1,6 +1,7 @@
 // starter code in both routes/celebrities.routes.js and routes/movies.routes.js
 const router = require("express").Router();
 const Celebrity = require("../models/Celebrity");
+const Movie = require("../models/Movie")
 
 // all your routes here
 
@@ -34,5 +35,50 @@ router.post("/create", async (req, res, next) => {
         res.redirect("/celebrities/create");
     }
 })
+
+/* GET celebrity-details page with celebrity id info*/
+router.get("/:celebrityId", async (req, res, next) => {
+    const {celebrityId} = req.params;
+    try {
+        const celebrity = await Celebrity.findById(celebrityId)
+        res.render("celebrities/celebrity-details", celebrity);
+    } catch (error) {
+        next(error);
+    }
+});
+
+/* POST delete celebrity*/
+router.post("/:celebrityId/delete", async (req, res, next) => {
+    const {celebrityId} = req.params;
+    try {
+        await Celebrity.findByIdAndDelete(celebrityId);
+        res.redirect("/celebrities");
+    } catch (error) {
+        next(error);
+    }
+});
+
+/* GET/POST edit celebrity*/
+
+router.get("/:celebrityId/edit", async (req, res, next) => {
+    const {celebrityId} = req.params;
+    try {
+        const celebrity = await Celebrity.findById(celebrityId)
+        res.render("celebrities/edit-celebrity", {celebrity});
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.post("/:celebrityId/edit", async (req, res, next) => {
+    const {celebrityId} = req.params;
+    const {name, occupation, catchPhrase} = req.body;
+    try {
+        await Celebrity.findByIdAndUpdate(celebrityId, {name, occupation, catchPhrase}, {new: true});
+        res.redirect(`/celebrities/${celebrityId}`);
+    } catch (error) {
+        next(error);
+    }
+});
 
 module.exports = router;

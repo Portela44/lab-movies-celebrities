@@ -45,7 +45,6 @@ router.get("/:movieId", async (req, res, next) => {
     try {
         const movie = await Movie.findById(movieId).populate("cast");
         res.render("movies/movie-details", {movie});
-        console.log(movie);
     } catch (error) {
         next(error);
     }
@@ -54,7 +53,6 @@ router.get("/:movieId", async (req, res, next) => {
 /* POST delete movie*/
 router.post("/:movieId/delete", async (req, res, next) => {
     const {movieId} = req.params;
-    console.log(movieId);
     try {
         await Movie.findByIdAndDelete(movieId);
         res.redirect("/movies");
@@ -62,5 +60,31 @@ router.post("/:movieId/delete", async (req, res, next) => {
         next(error);
     }
 });
+
+/* GET/POST edit movie*/
+
+router.get("/:movieId/edit", async (req, res, next) => {
+    const {movieId} = req.params;
+    try {
+        const movie = await Movie.findById(movieId).populate("cast");
+        const celebrities = await Celebrity.find({});
+        res.render("movies/edit-movie", {movie, celebrities});
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.post("/:movieId/edit", async (req, res, next) => {
+    const {movieId} = req.params;
+    const {title, genre, plot, cast} = req.body;
+    try {
+        await Movie.findByIdAndUpdate(movieId, {title, genre, plot, cast}, {new: true});
+        res.redirect(`/movies/${movieId}`);
+    } catch (error) {
+        next(error);
+    }
+});
+
+
 
 module.exports = router;

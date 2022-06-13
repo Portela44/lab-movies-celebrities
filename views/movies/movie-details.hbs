@@ -3,13 +3,15 @@
     <h4>{{genre}}</h4>
     <h4>{{plot}}</h4>
     {{#each cast}}
-    <ul>
-        <li><h4>{{name}}</h4></li>
-        <li><h6>{{occupation}}</h6></li>
-        <li><h6>{{catchPhrase}}</h6></li>
-    </ul>
+        <ul>
+            <li><h4>{{name}}</h4></li>
+            <li><h6>{{occupation}}</h6></li>
+            <li><h6>{{catchPhrase}}</h6></li>
+        </ul>
     {{/each}}
+    <a href="/movies/{{_id}}/edit">Edit</a>
     <form action="/movies/{{_id}}/delete" method="post">
-    <button type="submit">Delete movie</button>
+        <button type="submit">Delete</button>
     </form>
+    <a href="/movies">Back to movie list</a>
 {{/with}}
