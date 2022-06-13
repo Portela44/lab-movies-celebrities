@@ -9,5 +9,7 @@
         <li><h6>{{catchPhrase}}</h6></li>
     </ul>
     {{/each}}
-    
+    <form action="/movies/{{_id}}/delete" method="post">
+    <button type="submit">Delete movie</button>
+    </form>
 {{/with}}

@@ -15,7 +15,7 @@ router.get("/", async (req, res, next) => {
     } catch (error) {
         next(error)
     }   
-})
+});
 
 /* GET new-movies page with celebrity info*/
 router.get("/create", async (req, res, next) => {
@@ -26,7 +26,7 @@ router.get("/create", async (req, res, next) => {
         next(error);
     }
     
-})
+});
 
 /* POST new-movie in database */
 router.post("/create", async (req, res, next) => {
@@ -49,6 +49,18 @@ router.get("/:movieId", async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-})
+});
+
+/* POST delete movie*/
+router.post("/:movieId/delete", async (req, res, next) => {
+    const {movieId} = req.params;
+    console.log(movieId);
+    try {
+        await Movie.findByIdAndDelete(movieId);
+        res.redirect("/movies");
+    } catch (error) {
+        next(error);
+    }
+});
 
 module.exports = router;
